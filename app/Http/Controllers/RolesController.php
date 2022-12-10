@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class RolesController extends Controller
@@ -45,7 +46,16 @@ class RolesController extends Controller
 //
 //        return Role::find(3);
 
-        Role::find(3)->delete();
+        //Role::find(3)->delete();
+        foreach (Role::all() as $role) {
+            echo $role->name;
+        }
+    }
+
+    public function show(Role $role):JsonResponse
+    {
+        return response()->json(['data' => $role]);
+
     }
 }
 
