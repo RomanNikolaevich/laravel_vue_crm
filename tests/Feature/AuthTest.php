@@ -36,4 +36,16 @@ class AuthTest extends TestCase
         $response = $this->get('roles');
         $response->assertStatus(301);
     }
+
+    public function testRolesAuth()
+    {
+        $password = 123456;
+        $user = User::factory()->create(['password' => bcrypt($password)]);
+
+        $response = $this->post('login', ['email' => $user->email, 'password' => $password . '7']);
+        $response->assertStatus(301);
+
+        $response = $this->post('roles');
+        $response->assertStatus(301);
+    }
 }
